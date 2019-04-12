@@ -4,16 +4,17 @@ body {
 	box-sizing: border-box;
 	font-family: Open Sans, regular;
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
 	grid-template-areas:
 	"header header header"
-	"aside main main"
+	"aside main main";
+	grid-template-columns: repeat(3, 1fr);
 }
 
 button {
 	background-color: #1f1f3d;
 	border: 0px;
 	color: #ffffff;
+	font-size: 1em;
 }
 
 input {
