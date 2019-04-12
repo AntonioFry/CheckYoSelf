@@ -6,7 +6,7 @@ body {
 	display: grid;
 	grid-template-areas:
 	"header header header"
-	"aside main main";
+	"aside main main";	
 	grid-template-columns: repeat(3, 1fr);
 }
 
@@ -15,6 +15,7 @@ button {
 	border: 0px;
 	color: #ffffff;
 	font-size: 1em;
+	text-align: center;
 }
 
 input {
@@ -24,6 +25,11 @@ input {
 }
 
 label {
+	color: #f4f7f8;
+	width: 100%;
+}
+
+ul {
 	width: 100%;
 }
 
@@ -69,7 +75,7 @@ header {
 /* Aside */
 
 aside {
-	background-color: #587a8b;
+	background-color: #47869a;
 	grid-area: aside;
 	height: 875px;
 	padding: 20px 15px;

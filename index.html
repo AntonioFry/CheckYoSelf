@@ -9,7 +9,7 @@
 	<header>
 		<h1 class="title">CHECK<span class="title-mid"> YO' </span>SELF</h1>
 		<form class="search-form">
-			<button class="search-btn"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+			<button class="search-btn" type="button"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
 			<input placeholder="Search" class="header-search-bar" id="header-search-bar">
 		</form>
 	</header>
@@ -17,26 +17,28 @@
 		<form class="task-form">
 			<label for="task-title-input">Task Title</label>
 			<input class="task-title-input" id="task-title-input">
+			<ul id="preview-tasks">
+		
+			</ul>
 			<label for="task-item-input">Task Item</label>
-			<div id="preview-tasks">
-				
-			</div>
 			<div class="task-item-container">
 				<input class="task-item-input" id="task-item-input">
-				<button class="add-item-btn" id="add-item-btn">&#65291;</button>
+				<button class="add-item-btn" id="add-item-btn" type="button">&#65291;</button>
 			</div>
-			<button class="make-list-btn" id="make-list-btn">Make Task List</button>
-			<button class="clear-task-btn" id="clear-task-btn">Clear All</button>
+			<button class="make-list-btn" id="make-list-btn" type="button">Make Task List</button>
+			<button class="clear-task-btn" id="clear-task-btn" type="button">Clear All</button>
 		</form>
-		<button class="filter-urgency-btn" id="filter-urgency-btn">Filter By Urgency</button>
+		<button class="filter-urgency-btn" id="filter-urgency-btn" type="button">Filter By Urgency</button>
 	</aside>
 	<main>
-		<article>
-			<!-- <header>
+		<!-- <article class="todo-list-card" id="todo-list-card">
+			<header>
 				<h2>Title</h2>
-			</header> -->
+			</header>
 			<form></form>
-		</article>
+		</article> -->
 	</main>
+<script type="text/javascript" src="todo-list.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </body>
 </html>
