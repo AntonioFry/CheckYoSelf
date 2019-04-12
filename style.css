@@ -95,7 +95,7 @@ aside {
 
 .task-item-container,
 .task-title-input,
-.make-task-btn,
+.make-list-btn,
 .clear-task-btn {
 	width: 100%;
 }
@@ -108,7 +108,7 @@ aside {
 	width: 10%;
 }
 
-.make-task-btn,
+.make-list-btn,
 .clear-task-btn {
 	height: 30px;	
 	margin: 15px 0px;
