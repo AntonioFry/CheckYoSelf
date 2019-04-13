@@ -8,6 +8,7 @@ body {
 	"header header header"
 	"aside main main";	
 	grid-template-columns: repeat(3, 1fr);
+	margin: 0px;
 }
 
 button {
@@ -133,8 +134,9 @@ aside {
 
 main {
 	display: flex;
+	justify-content: space-between;
 	grid-area: main;
-	padding: 10px;
+	padding: 35px;
 }
 
 /* Todo list */
@@ -142,7 +144,7 @@ main {
 article {
 	background-color: #f4f7f8;
 	height: fit-content;
-	width: 40%;
+	width: 46%;
 }
 
 article,
@@ -162,6 +164,8 @@ article,
 }
 
 .current-tasks {
+	height: 100px;
+	padding: 10px;
 }
 
 .task-checkbox {
@@ -170,8 +174,22 @@ article,
 }
 
 .card-footer {
+	align-items: center;
 	display: flex;
 	height: 50px;
 	justify-content: space-between;
-	padding: 10px;
+}
+
+div {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.delete-label,
+.urgent-label {
+	color: #3c6577;
+	font-size: 10px;
+	text-align: center;
+	width: 100%;
 }
