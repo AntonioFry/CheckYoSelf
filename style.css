@@ -33,6 +33,10 @@ ul {
 	width: 100%;
 }
 
+img {
+	height: 20px
+}
+
 /* Header */
 
 header {
@@ -128,5 +132,46 @@ aside {
 /* Main */
 
 main {
-	grid-area: main
+	display: flex;
+	grid-area: main;
+	padding: 10px;
+}
+
+/* Todo list */
+
+article {
+	background-color: #f4f7f8;
+	height: fit-content;
+	width: 40%;
+}
+
+article,
+.card-header,
+.card-footer {
+	background-color: #f4f7f8;
+	border: 1px solid #c7d3d8;
+}
+
+.card-header {
+	height: 40px;
+}
+
+.card-title {
+	font-size: 1em;
+	margin: 0px;
+}
+
+.current-tasks {
+}
+
+.task-checkbox {
+	color: black;
+	height: 10px
+}
+
+.card-footer {
+	display: flex;
+	height: 50px;
+	justify-content: space-between;
+	padding: 10px;
 }

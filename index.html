@@ -32,12 +32,23 @@
 	</aside>
 	<main>
 		<article class="todo-list-card" id="todo-list-card">
-			<header>
-				<h2>Title</h2>
+			<header class="card-header">
+				<h2 class="card-title">Title</h2>
 			</header>
-			<form>
-				<input type="checkbox" name="">
+			<form class="current-tasks">
+				<input type="checkbox" class="task-checkbox">Heyo<br>
 			</form>
+			<footer class="card-footer">
+				<div>
+					<img src="check-yo-self-icons/
+					urgent.svg">
+					<label class="urgent-label">URGENT</label>
+				</div>
+				<div>
+					<img src="check-yo-self-icons/delete.svg">
+					<label class="delete-label">DELETE</label>
+				</div>
+			</footer>
 		</article>
 	</main>
 <script type="text/javascript" src="todo-list.js"></script>
