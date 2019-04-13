@@ -133,10 +133,11 @@ aside {
 /* Main */
 
 main {
+	background-color: #f3f6f7;
 	display: flex;
 	justify-content: space-between;
 	grid-area: main;
-	padding: 35px;
+	padding: 25px;
 }
 
 /* Todo list */
@@ -144,7 +145,7 @@ main {
 article {
 	background-color: #f4f7f8;
 	height: fit-content;
-	width: 46%;
+	width: 48%;
 }
 
 article,
@@ -164,13 +165,13 @@ article,
 }
 
 .current-tasks {
-	height: 100px;
 	padding: 10px;
 }
 
 .task-checkbox {
 	color: black;
-	height: 10px
+	height: 10px;
+	margin: 10px 10px 10px 0px;
 }
 
 .card-footer {
