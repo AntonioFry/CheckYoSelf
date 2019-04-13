@@ -11,16 +11,29 @@ var allToDolists = [];
 var addTaskInput = document.querySelector('#task-item-input');
 var addTaskBtn = document.querySelector('#add-item-btn');
 var titleInput = document.querySelector('#task-title-input')
+var articleCard = document.querySelector('.todo-list-card')
+var asideContainer = document.querySelector('aside')
 
 addTaskBtn.addEventListener('click', addTask);
+asideContainer.addEventListener('click', removeTask)
 
 function addTask(e) {
 	if (addTaskInput.value === '') {
 		return alert('Please enter a task item.');
 	}
 	asideTasks.push(addTaskInput.value);
+	var curretnIndex = (asideTasks.length -1)
 	var previewedTasks = document.querySelector('#preview-tasks')
-	previewedTasks.innerHTML = `<li class="task-item">${addTaskInput.value}</li>` + previewedTasks.innerHTML;
+	previewedTasks.innerHTML = `<li id=${curretnIndex} class="task-item">${addTaskInput.value}</li>` + previewedTasks.innerHTML;
+}
+
+function removeTask(e) {
+	var removableTask = e.target.closest('.task-item');
+	if(!removableTask){
+		return;
+	}
+	asideTasks.splice(removableTask.id, 1);
+	removableTask.remove();
 }
 
 function makeNewLists() {
@@ -39,3 +52,11 @@ function saveNewLists() {
 	var displayedLists = document.querySelector('main');
 	displayedLists.innerHTML = ''
 }
+
+
+// articleCard.addEventListener('click', clickArticleCard);
+
+
+// function clickArticleCard(e) {
+// 	e.target.classList.toggle('dan-is-cool')
+// }
