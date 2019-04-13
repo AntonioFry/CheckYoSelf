@@ -4,7 +4,7 @@
 // - List of tasks (in an array)
 // - Urgent value
 
-class ToDoLists {
+class toDoList {
 	constructor(id, title, tasks, urgent) {
 		this.id = id;
 		this.title = title;
