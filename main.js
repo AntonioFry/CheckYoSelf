@@ -7,7 +7,7 @@
 
 
 var asideTasks = [];
-var allToDoLists = [];
+var allToDoLists = Array.from(JSON.parse(localStorage.getItem('allToDoLists'))) || [];
 var addTaskInput = document.querySelector('#task-item-input');
 var addTaskBtn = document.querySelector('#add-item-btn');
 var titleInput = document.querySelector('#task-title-input')
@@ -19,7 +19,7 @@ var mainSection2 = document.querySelector('#main2')
 var urgentBtn = document.querySelector('#urgent-btn')
 var clearAllBtn = document.querySelector('#clear-task-btn')
 
-// window.addEventListener('load', pageLoad);
+window.addEventListener('load', pageLoad);
 addTaskBtn.addEventListener('click', addTask);
 asideContainer.addEventListener('click', removePreviewedTasks);
 makeToDoList.addEventListener('click', makeNewList);
@@ -31,8 +31,8 @@ function addTask(e) {
 		return alert('Please enter a task item.');
 	}
 	asideTasks.push(addTaskInput.value);
-	var curretnIndex = (asideTasks.length -1)
-	var previewedTasks = document.querySelector('#preview-tasks')
+	var curretnIndex = (asideTasks.length -1);
+	var previewedTasks = document.querySelector('#preview-tasks');
 	previewedTasks.innerHTML = `<li id=${curretnIndex} class="task-item">${addTaskInput.value}</li>` + previewedTasks.innerHTML;
 }
 
@@ -47,27 +47,25 @@ function removePreviewedTasks(e) {
 
 function clearAll(e) {
 	titleInput.value = null;
-	asideTasks.map(function(index) {
-		asideTasks.splice(index, asideTasks.length);
-	})
+	asideTasks = [];
 	document.querySelector('#preview-tasks').innerHTML = '';
+	document.querySelector('#task-item-input').value = '';
 }
 
 function makeNewList() {
-	var newList = new toDoList(Date.now(), titleInput.value, [], false);
-	newList.tasks = newList.tasks.concat(asideTasks);
+	var newList = new toDoList(Date.now(), titleInput.value, [...asideTasks]);
 	allToDoLists.push(newList);
-	newList.saveToLocalStorage();
+	newList.saveToLocalStorage(allToDoLists);
+	// console.log(allToDoLists)
+	// console.log('danimal1', allToDoLists)
 	// map over everything in local storage and if % 2 = 0 displayToDoList('left') else displayToDoList('right')
-	allToDoLists.map(function(elem, index) {
-		if (index %2 === 0) {
-			newList.side = 'left';
-			// display on left side;
-		} else {
-			newList.side = 'right';
-		}
+	document.querySelector('#main1').innerHTML = '';
+	document.querySelector('#main2').innerHTML = '';
+	allToDoLists.map(function(obj, index) {
+		displayToDoList(obj, index)
 	});
-	displayToDoList(newList);
+	clearAll();
+	// displayToDoList(newList, index);
 }
 
 // function saveLocalList() {
@@ -75,22 +73,22 @@ function makeNewList() {
 // 	localStorage.setItem('allToDoLists', stringifyToDoList);
 // }
 
-function displayToDoList(obj) {
-	let displaySection;
-	if (obj.side === 'left') {
-		displaySection = document.querySelector('#main1')
-	} else if (obj.side === 'right') {
-		displaySection = document.querySelector('#main2')
+function displayToDoList(obj, index) {
+	var displaySection;
+	if (index %2 === 0) {
+		displaySection = document.querySelector('#main1');
+	} else {
+		displaySection = document.querySelector('#main2');
 	}
-	var eachCheckBox = `<input type="checkbox" class="task-checkbox"><br>`;
-	obj.tasks.map((elem, index) => elem.tasks[index] = eachCheckBox.innerHTML);
+	var eachTask = obj.tasks.map((elem, index) => `<input type="checkbox" class="task-checkbox">${elem}</input><br>`);
+	var allTasks = eachTask.join(' ');
 	displaySection.innerHTML = `<article class="todo-list-card" id="${obj.id}">
 				<header class="card-header">
 				<h2 class="card-title">${obj.title}</h2>
 				</header>
-				<form class="current-tasks">` 
-				+ eachCheckBox.innerHTML + 
-				`</form>
+				<form class="current-tasks">
+				${allTasks}
+				</form>
 				<footer class="card-footer">
 				<div id="urgent-btn">
 				<img src="check-yo-self-icons/
@@ -103,6 +101,14 @@ function displayToDoList(obj) {
 				</div>
 				</footer>
 				</article>` + displaySection.innerHTML;
+}
+
+function pageLoad(obj) {
+	// var thing = localStorage.getItem('allToDoLists');
+	// Array.from(JSON.parse(localStorage.getItem('allToDoLists')));
+	return allToDoLists.map(function(elem, index) {
+		return displayToDoList(elem, index);
+	});
 }
 
 // function toggleUrgent() {

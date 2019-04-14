@@ -14,8 +14,10 @@ body {
 button {
 	background-color: #1f1f3d;
 	border: 0px;
+	display: flex;
 	color: #ffffff;
 	font-size: 1em;
+	justify-content: center;
 	text-align: center;
 }
 
