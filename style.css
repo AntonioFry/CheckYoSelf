@@ -151,6 +151,8 @@ main {
 
 .main-divs {
 	width: 48%;
+	display: flex;
+	align-content: flex-start;
 }
 
 /* Todo list */
@@ -158,6 +160,7 @@ main {
 article {
 	background-color: #f4f7f8;
 	height: fit-content;
+	margin: 0px 0px 15px 0px;
 	width: 100%;
 }
 
@@ -206,6 +209,11 @@ div {
 	font-size: 10px;
 	text-align: center;
 	width: 100%;
+}
+
+.urgent-card {
+	background-color: #ffe89d;
+	border: 1px solid #ffc30c;
 }
 
 .dan-is-cool {

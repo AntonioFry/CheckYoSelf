@@ -5,15 +5,16 @@
 // - Urgent value
 
 class toDoList {
-	constructor(id, title, tasks, urgent) {
+	constructor(id, title, tasks, urgent, side) {
 		this.id = id;
 		this.title = title;
 		this.tasks = [];
 		this.urgent = urgent;
+		this.side = side;
 	}
 	
 	saveToLocalStorage() {
-		var stringifiedLists = JSON.stringify(newList);
-		localStorage.setItem('newList', stringifiedLists);
+		var stringifiedLists = JSON.stringify(allToDoLists);
+		localStorage.setItem('allToDoLists', stringifiedLists);
 	}
 }

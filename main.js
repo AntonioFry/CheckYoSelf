@@ -7,7 +7,7 @@
 
 
 var asideTasks = [];
-var allToDolists = [];
+var allToDoLists = [];
 var addTaskInput = document.querySelector('#task-item-input');
 var addTaskBtn = document.querySelector('#add-item-btn');
 var titleInput = document.querySelector('#task-title-input')
@@ -17,11 +17,14 @@ var makeToDoList = document.querySelector('#make-list-btn');
 var mainSection1 = document.querySelector('#main1')
 var mainSection2 = document.querySelector('#main2')
 var urgentBtn = document.querySelector('#urgent-btn')
+var clearAllBtn = document.querySelector('#clear-task-btn')
 
+// window.addEventListener('load', pageLoad);
 addTaskBtn.addEventListener('click', addTask);
 asideContainer.addEventListener('click', removePreviewedTasks);
 makeToDoList.addEventListener('click', makeNewList);
-urgentBtn.addEventListener('click', makeUrgent);
+urgentBtn.addEventListener('click', toggleUrgent);
+clearAllBtn.addEventListener('click', clearAll);
 
 function addTask(e) {
 	if (addTaskInput.value === '') {
@@ -42,34 +45,41 @@ function removePreviewedTasks(e) {
 	removableTask.remove();
 }
 
+function clearAll(e) {
+	titleInput.value = null;
+	asideTasks.map(function(index) {
+		asideTasks.splice(index, asideTasks.length);
+	})
+	document.querySelector('#preview-tasks').innerHTML = '';
+}
+
 function makeNewList() {
 	var newList = new toDoList(Date.now(), titleInput.value, [], false);
 	newList.tasks = newList.tasks.concat(asideTasks);
-	allToDolists.push(newList);
-	// saveNewLists(newList);
-	// allToDolists.saveToLocalStorage();
+	allToDoLists.push(newList);
+	newList.saveToLocalStorage();
 	// map over everything in local storage and if % 2 = 0 displayToDoList('left') else displayToDoList('right')
-	allToDolists.map(function(elem, index) {
+	allToDoLists.map(function() {
 		if (index %2 === 0) {
-			displayToDoList('left');
-			//display on left side;
+			newList.side = 'left';
+			// display on left side;
 		} else {
-			displayToDoList();
+			newList.side = 'right';
 		}
 	});
-	displayToDoList();
+	displayToDoList(newList);
 }
 
-function saveLocalList() {
-	var stringifyToDoList = JSON.stringify(allToDolists);
-	localStorage.setItem('allToDolists', stringifyToDoList);
-}
+// function saveLocalList() {
+// 	var stringifyToDoList = JSON.stringify(allToDoLists);
+// 	localStorage.setItem('allToDoLists', stringifyToDoList);
+// }
 
-function displayToDoList(side, obj) {
+function displayToDoList(obj) {
 	let displaySection;
-	if (side == 'left') {
+	if (obj.side === 'left') {
 		displaySection = document.querySelector('#main1')
-	} else {
+	} else if (obj.side === 'right') {
 		displaySection = document.querySelector('#main2')
 	}
 	console.log(displaySection)
@@ -78,7 +88,10 @@ function displayToDoList(side, obj) {
 				<h2 class="card-title">${obj.title}</h2>
 				</header>
 				<form class="current-tasks">
-				<input type="checkbox" class="task-checkbox">Heyo<br>
+				${obj.map(function(elem, index) {
+					elem.tasks[index] = document.querySelector(".task-checkbox").innerHTML;
+				});}
+				<input type="checkbox" class="task-checkbox"><br>
 				</form>
 				<footer class="card-footer">
 				<div id="urgent-btn">
@@ -94,8 +107,15 @@ function displayToDoList(side, obj) {
 				</article>` + displaySection.innerHTML;
 }
 
-function makeUrgent(e) {
-	
+function toggleUrgent() {
+	if (newList.urgent === false) {
+		newList.urgent = true;
+		document.querySelector('#urgent-btn-icon').src = 'check-yo-self-icons/urgent-active.svg';
+	} else {
+		newList.urgent = false;
+		document.querySelector('#urgent-btn-icon').src = 'check-yo-self-icons/urgent.svg';
+	}
+	// e.target.classList.toggle('urgent-card')
 }
 
 
