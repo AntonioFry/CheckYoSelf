@@ -16,10 +16,12 @@ var asideContainer = document.querySelector('aside')
 var makeToDoList = document.querySelector('#make-list-btn');
 var mainSection1 = document.querySelector('#main1')
 var mainSection2 = document.querySelector('#main2')
+var urgentBtn = document.querySelector('#urgent-btn')
 
 addTaskBtn.addEventListener('click', addTask);
-asideContainer.addEventListener('click', removeTask);
+asideContainer.addEventListener('click', removePreviewedTasks);
 makeToDoList.addEventListener('click', makeNewList);
+urgentBtn.addEventListener('click', makeUrgent);
 
 function addTask(e) {
 	if (addTaskInput.value === '') {
@@ -31,7 +33,7 @@ function addTask(e) {
 	previewedTasks.innerHTML = `<li id=${curretnIndex} class="task-item">${addTaskInput.value}</li>` + previewedTasks.innerHTML;
 }
 
-function removeTask(e) {
+function removePreviewedTasks(e) {
 	var removableTask = e.target.closest('.task-item');
 	if(!removableTask) {
 		return;
@@ -42,13 +44,17 @@ function removeTask(e) {
 
 function makeNewList() {
 	var newList = new toDoList(Date.now(), titleInput.value, [], false);
+	newList.tasks = newList.tasks.concat(asideTasks);
 	allToDolists.push(newList);
 	// saveNewLists(newList);
 	// allToDolists.saveToLocalStorage();
-	//map over everything in local storage and if % 2 = 0 displayToDOList('left') else displayToDOList('right')
-	allToDolists.map(function(elem, i) {
-		if (i %2 === 0) {
+	// map over everything in local storage and if % 2 = 0 displayToDoList('left') else displayToDoList('right')
+	allToDolists.map(function(elem, index) {
+		if (index %2 === 0) {
+			displayToDoList('left');
 			//display on left side;
+		} else {
+			displayToDoList();
 		}
 	});
 	displayToDoList();
@@ -59,33 +65,37 @@ function saveLocalList() {
 	localStorage.setItem('allToDolists', stringifyToDoList);
 }
 
-function displayToDoList(parameter) {
+function displayToDoList(side, obj) {
 	let displaySection;
-	if(parameter == 'left'){
-		displaySection = document.querySelector('main1')
-	}else {
-		displaySection = document.querySelector('main2')
+	if (side == 'left') {
+		displaySection = document.querySelector('#main1')
+	} else {
+		displaySection = document.querySelector('#main2')
 	}
-
-	displaySection.innerHTML = `<article class="todo-list-card" id="todo-list-card">
+	console.log(displaySection)
+	displaySection.innerHTML = `<article class="todo-list-card" id="${obj.id}">
 				<header class="card-header">
-				<h2 class="card-title">Title</h2>
+				<h2 class="card-title">${obj.title}</h2>
 				</header>
 				<form class="current-tasks">
-				<input type="checkbox" class="task-checkbox">Heyo	<br>
+				<input type="checkbox" class="task-checkbox">Heyo<br>
 				</form>
 				<footer class="card-footer">
-				<div>
+				<div id="urgent-btn">
 				<img src="check-yo-self-icons/
 				urgent.svg">
 				<label class="urgent-label">URGENT</label>
 				</div>
-				<div>
+				<div id="delete-card">
 				<img src="check-yo-self-icons/delete.svg">
 				<label class="delete-label">DELETE</label>
 				</div>
 				</footer>
 				</article>` + displaySection.innerHTML;
+}
+
+function makeUrgent(e) {
+	
 }
 
 

@@ -11,4 +11,9 @@ class toDoList {
 		this.tasks = [];
 		this.urgent = urgent;
 	}
+	
+	saveToLocalStorage() {
+		var stringifiedLists = JSON.stringify(newList);
+		localStorage.setItem('newList', stringifiedLists);
+	}
 }

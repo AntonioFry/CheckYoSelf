@@ -141,14 +141,16 @@ aside {
 /* Main */
 
 main {
-	align-items: ;
 	background-color: #f3f6f7;
 	display: flex;
-	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	grid-area: main;
 	padding: 25px;
+}
+
+.main-divs {
+	width: 48%;
 }
 
 /* Todo list */
@@ -156,7 +158,7 @@ main {
 article {
 	background-color: #f4f7f8;
 	height: fit-content;
-	width: 48%;
+	width: 100%;
 }
 
 article,
