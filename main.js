@@ -70,10 +70,10 @@ function makeNewList() {
 	// displayToDoList(newList, index);
 }
 
-// function saveLocalList() {
-// 	var stringifyToDoList = JSON.stringify(allToDoLists);
-// 	localStorage.setItem('allToDoLists', stringifyToDoList);
-// }
+function saveLocalList() {
+	var stringifyToDoList = JSON.stringify(allToDoLists);
+	localStorage.setItem('allToDoLists', stringifyToDoList);
+}
 
 function displayToDoList(obj, index) {
 	var displaySection;
@@ -106,6 +106,7 @@ function displayToDoList(obj, index) {
 }
 
 function pageLoad() {
+	console.log(allToDoLists);
 	// var thing = localStorage.getItem('allToDoLists');
 	// Array.from(JSON.parse(localStorage.getItem('allToDoLists')));
 	return allToDoLists.map(function(elem, index) {
@@ -113,7 +114,12 @@ function pageLoad() {
 	});
 }
 
+// function findId() {
+// 	var 
+// }
+
 function deleteToDoList(e) {
+	var removableCard = e.target.closest('.todo-list-card');
 	var deleteBtn =  e.target.closest('#delete-card');
 	if (!deleteBtn) {
 		return;
@@ -128,7 +134,11 @@ function deleteToDoList(e) {
 		console.log('dont delete');
 		return;
 	} else {
-		console.log('delete');
+		removableCard.remove()
+		console.log('before', allToDoLists);
+		var removedCard = allToDoLists.splice(removableCard.id === allToDoLists.id, 1);
+		saveLocalList(allToDoLists);
+		console.log('delete', allToDoLists);
 	}
 	// if unchecked uncheckedInput has a length return;
 	// else if uncheckedInput === 0 delete card;
