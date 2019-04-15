@@ -109,7 +109,8 @@ function pageLoad() {
 	console.log(allToDoLists);
 	// var thing = localStorage.getItem('allToDoLists');
 	// Array.from(JSON.parse(localStorage.getItem('allToDoLists')));
-	return allToDoLists.map(function(elem, index) {
+	var reverseOrder = allToDoLists.reverse();
+	return reverseOrder.map(function(elem, index) {
 		return displayToDoList(elem, index);
 	});
 }
