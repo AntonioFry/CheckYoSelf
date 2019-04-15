@@ -10,14 +10,15 @@ var asideTasks = [];
 var allToDoLists = Array.from(JSON.parse(localStorage.getItem('allToDoLists'))) || [];
 var addTaskInput = document.querySelector('#task-item-input');
 var addTaskBtn = document.querySelector('#add-item-btn');
-var titleInput = document.querySelector('#task-title-input')
-var articleCard = document.querySelector('.todo-list-card')
-var asideContainer = document.querySelector('aside')
+var titleInput = document.querySelector('#task-title-input');
+var articleCard = document.querySelector('.todo-list-card');
+var asideContainer = document.querySelector('aside');
 var makeToDoList = document.querySelector('#make-list-btn');
-var mainSection1 = document.querySelector('#main1')
+var mainSection1 = document.querySelector('#main1');
 var mainSection2 = document.querySelector('#main2')
-var urgentBtn = document.querySelector('#urgent-btn')
-var clearAllBtn = document.querySelector('#clear-task-btn')
+var urgentBtn = document.querySelector('#urgent-btn');
+var clearAllBtn = document.querySelector('#clear-task-btn');
+var mainSection = document.querySelector('main');
 
 window.addEventListener('load', pageLoad);
 addTaskBtn.addEventListener('click', addTask);
@@ -25,6 +26,7 @@ asideContainer.addEventListener('click', removePreviewedTasks);
 makeToDoList.addEventListener('click', makeNewList);
 // urgentBtn.addEventListener('click', toggleUrgent);
 clearAllBtn.addEventListener('click', clearAll);
+mainSection.addEventListener('click', deleteToDoList);
 
 function addTask(e) {
 	if (addTaskInput.value === '') {
@@ -80,7 +82,7 @@ function displayToDoList(obj, index) {
 	} else {
 		displaySection = document.querySelector('#main2');
 	}
-	var eachTask = obj.tasks.map((elem, index) => `<input type="checkbox" class="task-checkbox">${elem}</input><br>`);
+	var eachTask = obj.tasks.map((elem, index) => `<input type="checkbox" id="" class="task-checkbox">${elem}</input>`);
 	var allTasks = eachTask.join(' ');
 	displaySection.innerHTML = `<article class="todo-list-card" id="${obj.id}">
 				<header class="card-header">
@@ -103,13 +105,35 @@ function displayToDoList(obj, index) {
 				</article>` + displaySection.innerHTML;
 }
 
-function pageLoad(obj) {
+function pageLoad() {
 	// var thing = localStorage.getItem('allToDoLists');
 	// Array.from(JSON.parse(localStorage.getItem('allToDoLists')));
 	return allToDoLists.map(function(elem, index) {
 		return displayToDoList(elem, index);
 	});
 }
+
+function deleteToDoList(e) {
+	var deleteBtn =  e.target.closest('#delete-card');
+	if (!deleteBtn) {
+		return;
+	}
+	var closestToDoList = Array.from(deleteBtn.closest('.todo-list-card').children[1].children);
+	// iterate over this array and check if each element has a checked property of true
+	// if not kick out;
+	var uncheckedInputs = closestToDoList.filter(function(elem) {
+		return elem.checked === false;	
+	});
+	if (uncheckedInputs.length) {
+		console.log('dont delete');
+		return;
+	} else {
+		console.log('delete');
+	}
+	// if unchecked uncheckedInput has a length return;
+	// else if uncheckedInput === 0 delete card;
+
+};
 
 // function toggleUrgent() {
 // 	if (newList.urgent === false) {
