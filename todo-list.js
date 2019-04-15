@@ -16,4 +16,7 @@ class toDoList {
 		var stringifiedLists = JSON.stringify(allToDoLists);
 		localStorage.setItem('allToDoLists', stringifiedLists);
 	}
+	toggleUrgent(list) {
+		this.urgent = !this.urgent;	
+	}
 }

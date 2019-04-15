@@ -84,7 +84,7 @@ header {
 aside {
 	background-color: #47869a;
 	grid-area: aside;
-	height: 875px;
+	min-height: 875px;
 	padding: 20px 15px;
 }
 
@@ -183,13 +183,29 @@ article,
 }
 
 .current-tasks {
+	display: flex;
+	flex-wrap: wrap;
 	padding: 10px;
 }
 
-.task-checkbox {
-	color: black;
-	height: 10px;
-	margin: 10px 10px 10px 0px;
+.checkbox-container{
+	display: inline-block;
+	height: 20px;
+	margin: 0px 0px 10px 0px; 
+	width: 100%;
+}
+
+.task-checkbox,
+.checkbox-content {
+	height: 14px;
+	color: #1f1f3d;
+	margin: 0px 10px 0px 0px;
+}
+
+.checkbox-content {
+	width: 80%;
+  position: relative;
+  bottom: 6px;
 }
 
 .card-footer {
