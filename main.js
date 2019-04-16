@@ -5,7 +5,7 @@
 // 			- create a function that gets the input
 
 var asideTasks = [];
-var allToDoLists = Array.from(JSON.parse(localStorage.getItem('allToDoLists'))) || [];
+var allToDoLists = [];
 var addTaskInput = document.querySelector('#task-item-input');
 var addTaskBtn = document.querySelector('#add-item-btn');
 var titleInput = document.querySelector('#task-title-input');
@@ -24,9 +24,10 @@ window.addEventListener('load', pageLoad);
 addTaskBtn.addEventListener('click', addTask);
 asideContainer.addEventListener('click', removePreviewedTasks);
 makeToDoList.addEventListener('click', makeNewList);
-urgentBtn.addEventListener('click', makeUrgent);
+mainSection.addEventListener('click', makeUrgent);
 clearAllBtn.addEventListener('click', clearAll);
 mainSection.addEventListener('click', deleteToDoList);
+// xmainSection.addEventListener('click', getId);
 
 function addTask(e) {
 	if (addTaskInput.value === '') {
@@ -54,48 +55,46 @@ function clearAll(e) {
 	document.querySelector('#task-item-input').value = '';
 }
 
-function disableMakeNewListBtn(e) {
-	if (document.querySelector('#preview-tasks').innerHTML === '') {
-		clearAllBtn.disabled = true;
-		clearAllBtn.style.backgroundcolor = 'gray';
-	}
-}
+// function disableMakeNewListBtn(e) {
+// 	if (document.querySelector('#preview-tasks').innerHTML === '') {
+// 		clearAllBtn.disabled = true;
+// 		clearAllBtn.style.backgroundColor = '#aaaa';
+// 	} else {
+// 		clearAllBtn.disabled = false
+// 		clearAllBtn.style.backgroundColor = '#1f1f3d'
+// 	}
+// }
 
 function makeNewList() {
 	var newList = new toDoList(Date.now(), titleInput.value, asideTasks);
 	allToDoLists.push(newList);
 	newList.saveToLocalStorage(allToDoLists);
-	document.querySelector('#main1').innerHTML = '';
-	document.querySelector('#main2').innerHTML = '';
-	allToDoLists.map(function(elem, index) {
-		displayToDoList(elem, index)
-	});
+	// document.querySelector('#main1').innerHTML = '';
+	// document.querySelector('#main2').innerHTML = '';
+	// allToDoLists.map(function(elem, index) {
+	// 	return displayToDoList(elem, index)
+	// });
+	displayToDoList(newList)
 	clearAll();
 }
 
-// function saveLocalList() {
-// 	var stringifyToDoList = JSON.stringify(allToDoLists);
-// 	localStorage.setItem('allToDoLists', stringifyToDoList);
-// }
-
-function displayToDoList(elem, index) {
-	var displaySection;
-	if (index %2 === 0) {
-		displaySection = document.querySelector('#main1');
-	} else {
-		displaySection = document.querySelector('#main2');
-	}
-	var eachTask = elem.tasks.map((text, index) => `<input type="checkbox" class="task-checkbox"><label class="checkbox-content">${text}</label><br>`);
+function displayToDoList(elem) {
+	// if (index %2 === 0) {
+	// 	displaySection = document.querySelector('#1main');
+	// } else {
+	// 	displaySection = document.querySelector('#main2');
+	// }
+	var eachTask = elem.tasks.map((text, index) => `<input type="checkbox" class="task-checkbox"><label class="checkbox-content">${text}</label></br>`);
 	var allTasks = eachTask.join(' ');
-	displaySection.innerHTML = `<article class="todo-list-card urgent-card" id="${obj.id}">
+	mainSection.innerHTML = `<article class="todo-list-card" data-id="${elem.id}">
 				<header class="card-header">
-				<h2 class="card-title">${obj.title}</h2>
+				<h2 class="card-title">${elem.title}</h2>
 				</header>
 				<form class="current-tasks">
 				${allTasks}
 				</form>
 				<footer class="card-footer">
-				<div id="urgent-btn">
+				<div class="urgent-btn">
 				<img src="check-yo-self-icons/
 				urgent.svg">
 				<label class="urgent-label">URGENT</label>
@@ -105,30 +104,43 @@ function displayToDoList(elem, index) {
 				<label class="delete-label">DELETE</label>
 				</div>
 				</footer>
-				</article>` + displaySection.innerHTML;
+				</article>` + mainSection.innerHTML;
 }
 
 function pageLoad() {
-	console.log(allToDoLists);
-	disableMakeNewListBtn()
+	// disableMakeNewListBtn()
 	// var thing = localStorage.getItem('allToDoLists');
-	// var thingArray = Array.from(JSON.parse(localStorage.getItem('allToDoLists')));
-	// console.log(thingArray)
-	var reverseOrder = allToDoLists.reverse();
-	return reverseOrder.map(function(elem, index) {
-		return displayToDoList(elem, index);
+	// var listLocalStorage = Array.from(JSON.parse(localStorage.getItem('allToDoLists')));
+	var newObj = JSON.parse(localStorage.getItem('allToDoLists'));
+	for (var i = 0; i < newObj.length; i++) {
+		var card = new toDoList(newObj[i].id, newObj[i].title, newObj[i].tasks, newObj[i].urgent);
+		allToDoLists.push(card);
+		displayToDoList(card);
+	}
+	console.log(allToDoLists);
+
+	// (function(elem, index) {
+	// 	return displayToDoList();
+	// });
+}
+
+function getId(e) {
+	var targetCard = e.target.closest('.todo-list-card');
+	var specificId = parseInt(targetCard.getAttribute('data-id'));
+	var listLocation = allToDoLists.findIndex(function(i) {
+		return i.id  === specificId;
 	});
+	return listLocation;
 }
 
 function deleteToDoList(e) {
+	var i = getId(e);
 	var removableCard = e.target.closest('.todo-list-card');
 	var deleteBtn =  e.target.closest('#delete-card');
 	if (!deleteBtn) {
 		return;
 	}
 	var closestToDoList = Array.from(deleteBtn.closest('.todo-list-card').children[1].children);
-	// iterate over this array and check if each element has a checked property of true
-	// if not kick out;
 	var uncheckedInputs = closestToDoList.filter(function(elem) {
 		return elem.checked === false;	
 	});
@@ -137,16 +149,26 @@ function deleteToDoList(e) {
 		return;
 	} else {
 		removableCard.remove()
-		allToDoLists.splice(removableCard.id === allToDoLists.id, 1);
-		console.log('delete')
+		allToDoLists.splice(i, 1);
+		updateLocalStorage()
 	}
-	// if unchecked uncheckedInput has a length return;
-	// else if uncheckedInput === 0 delete card;
 };
 
-function makeUrgent() {
-	
+function makeUrgent(e) {
+	var urgentBtn = e.target.closest(urgentBtn);
+	if (!urgentBtn) {
+		return
+	}
+	e.target.classList.toggle('#urgent-card')
+	console.log(newList)
 }
+
+
+function updateLocalStorage() {
+	var stringifyToDoList = JSON.stringify(allToDoLists);
+	localStorage.setItem('allToDoLists', stringifyToDoList);
+}
+
 // articleCard.addEventListener('click', clickArticleCard);
 
 

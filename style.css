@@ -144,11 +144,11 @@ aside {
 
 main {
 	background-color: #f3f6f7;
-	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
-	grid-area: main;
-	padding: 25px;
+  columns: 2;
+  justify-content: space-between;
+  grid-area: main;
+  padding: 25px;
 }
 
 .main-divs {
@@ -161,14 +161,18 @@ main {
 
 article {
 	background-color: #f4f7f8;
-	height: fit-content;
-	margin: 0px 0px 15px 0px;
-	width: 100%;
+	background-color: #f4f7f8;
+  height: fit-content;
+  margin: 0px 0px 15px 0px;
+  width: 100%;
+  break-inside: avoid;
+  overflow: hidden;
 }
 
 article,
 .card-header,
-.card-footer {
+.card-footer,
+.current-tasks {
 	background-color: #f4f7f8;
 	border: 1px solid #c7d3d8;
 }
@@ -178,32 +182,23 @@ article,
 }
 
 .card-title {
+	color: #1f1f3d;
 	font-size: 1em;
 	margin: 0px;
 }
 
 .current-tasks {
-	display: flex;
-	flex-wrap: wrap;
 	padding: 10px;
-}
-
-.checkbox-container{
-	display: inline-block;
-	height: 20px;
-	margin: 0px 0px 10px 0px; 
-	width: 100%;
 }
 
 .task-checkbox,
 .checkbox-content {
-	height: 14px;
+	height: 28px;
 	color: #1f1f3d;
 	margin: 0px 10px 0px 0px;
 }
 
 .checkbox-content {
-	width: 80%;
   position: relative;
   bottom: 6px;
 }
