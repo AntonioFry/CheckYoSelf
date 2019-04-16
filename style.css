@@ -1,4 +1,4 @@
-/* Global elements */
+ Global elements */
 
 body {
 	box-sizing: border-box;
@@ -169,7 +169,7 @@ article {
   overflow: hidden;
 }
 
-article,
+.todo-list-card,
 .card-header,
 .card-footer,
 .current-tasks {
@@ -229,9 +229,16 @@ div {
 	border: 1px solid #ffc30c;
 }
 
+/* Urgent Styles */
+
+.card-true {
+	background-color: #ffe89d;
+	border: 1px solid #ffc30c;
+}
+
 /*.dan-is-cool {
 	background-color: blue;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}*/
+}

@@ -27,6 +27,7 @@ makeToDoList.addEventListener('click', makeNewList);
 mainSection.addEventListener('click', makeUrgent);
 clearAllBtn.addEventListener('click', clearAll);
 mainSection.addEventListener('click', deleteToDoList);
+mainSection.addEventListener('click', toggleUrgentStyle);
 // xmainSection.addEventListener('click', getId);
 
 function addTask(e) {
@@ -86,18 +87,18 @@ function displayToDoList(elem) {
 	// }
 	var eachTask = elem.tasks.map((text, index) => `<input type="checkbox" class="task-checkbox"><label class="checkbox-content">${text}</label></br>`);
 	var allTasks = eachTask.join(' ');
-	mainSection.innerHTML = `<article class="todo-list-card" data-id="${elem.id}">
-				<header class="card-header">
+	mainSection.innerHTML = `<article class="todo-list-card todo-list-card-${elem.urgent}" data-id="${elem.id}">
+				<header class="card-header card-header-${elem.urgent}">
 				<h2 class="card-title">${elem.title}</h2>
 				</header>
-				<form class="current-tasks">
+				<form class="current-tasks current-tasks-${elem.urgent}">
 				${allTasks}
 				</form>
-				<footer class="card-footer">
+				<footer class="card-footer card-footer-${elem.urgent}">
 				<div class="urgent-btn">
 				<img src="check-yo-self-icons/
 				urgent.svg">
-				<label class="urgent-label">URGENT</label>
+				<label class="urgent-label urgent-label-${elem.urgent}">URGENT</label>
 				</div>
 				<div id="delete-card">
 				<img src="check-yo-self-icons/delete.svg">
@@ -134,7 +135,7 @@ function getId(e) {
 }
 
 function deleteToDoList(e) {
-	var i = getId(e);
+	var index = getId(e);
 	var removableCard = e.target.closest('.todo-list-card');
 	var deleteBtn =  e.target.closest('#delete-card');
 	if (!deleteBtn) {
@@ -149,10 +150,21 @@ function deleteToDoList(e) {
 		return;
 	} else {
 		removableCard.remove()
-		allToDoLists.splice(i, 1);
+		allToDoLists.splice(index, 1);
 		updateLocalStorage()
 	}
 };
+
+function toggleUrgentStyle(e) {
+	var toDoCard = e.target.closest('.todo-list-card');
+	var index = getId(e);
+	var obj = allToDoLists[index];
+	toDoCard.childNodes[0].className = `todo-list-card todo-list-card-${elem.urgent}`;
+	toDoCard.childNodes[1].className = `card-header card-header-${elem.urgent}`;
+	toDoCard.childNodes[3].className = `current-tasks current-tasks-${elem.urgent}`;
+	toDoCard.childNodes[5].className = `card-footer card-footer-${elem.urgent}`;
+	toDoCard.childNodes[5].childNodes[1].childNodes[3].className = `urgent-label urgent-label-${elem.urgent}`;
+}
 
 function makeUrgent(e) {
 	var urgentBtn = e.target.closest(urgentBtn);
