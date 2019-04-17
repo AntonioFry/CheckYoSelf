@@ -248,6 +248,13 @@ div {
 		display: block;
 	}
 
+	form,
+	input,
+	button {
+		font-size: 20px;
+		height: 35px;
+	}
+
 	label {
 		width: 90%;
 	}
@@ -268,6 +275,10 @@ div {
 
 	aside {
 		min-height: 400px;
+	}
+
+	.task-form {
+		height: 300px;
 	}
 
 	.filter-urgency-btn {
