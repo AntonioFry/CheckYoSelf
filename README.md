@@ -9,7 +9,10 @@ As a part of the project, it was important to make sure that the site also appea
 comps:
 
 Desktop:
+
 ![desktop comp image](http://frontend.turing.io/assets/images/projects/check-yo-self/check-yo-self-01.jpg)
 
+
 Mobile:
+
 ![mobile comp image](http://frontend.turing.io/assets/images/projects/check-yo-self/check-yo-self-04.jpg)
