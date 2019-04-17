@@ -5,7 +5,7 @@
 // - Urgent value
 
 class toDoList {
-	constructor(id, title, tasks, urgent, checked, urgentImg) {
+	constructor(id, title, tasks, urgent, urgentImg, checked) {
 		this.id = id;
 		this.title = title;
 		this.tasks = tasks || [];
@@ -25,8 +25,10 @@ class toDoList {
 		this.urgent = !this.urgent;
 		if (this.urgent === false) {
 			this.urgentImg = "check-yo-self-icons/urgent.svg";
+			console.log(this.urgentImg)
 		} else if (this.urgent === true) {
 			this.urgentImg = "check-yo-self-icons/urgent-active.svg";
+			console.log(this.urgentImg)
 		}
 	}
 }

@@ -83,7 +83,7 @@ function displayToDoList(elem) {
 				</form>
 				<footer class="card-footer card-${elem.urgent}">
 				<div id="urgent-card">
-				<img src=${elem.urgentImg}>
+				<img src="${elem.urgentImg}">
 				<label class="urgent-label ${elem.urgent}">URGENT</label>
 				</div>
 				<div id="delete-card">
