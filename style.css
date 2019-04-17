@@ -241,7 +241,6 @@ div {
 	color: #b23a25;
 }
 
-
 @media only screen and (max-width: 650px) {
 
 	body {
@@ -282,8 +281,8 @@ div {
 	}
 
 	.filter-urgency-btn {
-		width: 90%;
 		margin: auto;
+		width: 90%;
 	}
 
 	.task-item-container,
@@ -302,5 +301,5 @@ div {
 		display: flex;
 		justify-content: left;
 	}
-
+	
 }

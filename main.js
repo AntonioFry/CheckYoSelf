@@ -154,7 +154,6 @@ function makeUrgent(e) {
 	allToDoLists[i].toggleUrgent(e);
 	toggleUrgentStyle(e);
 	allToDoLists[i].updateLocalStorage(e);
-
 }
 
 
