@@ -1,4 +1,4 @@
- Global elements */
+ /* Global elements */
 
 body {
 	box-sizing: border-box;
@@ -151,12 +151,6 @@ main {
   padding: 25px;
 }
 
-.main-divs {
-	width: 48%;
-	display: flex;
-	align-content: flex-start;
-}
-
 /* Todo list */
 
 article {
@@ -198,6 +192,10 @@ article {
 	margin: 0px 10px 0px 0px;
 }
 
+.task-checkbox {
+	background: url();
+}
+
 .checkbox-content {
   position: relative;
   bottom: 6px;
@@ -231,14 +229,67 @@ div {
 
 /* Urgent Styles */
 
-.card-true {
+.todo-list-card.card-true,
+.card-header.card-true,
+.card-footer.card-true,
+.current-tasks.card-true {
 	background-color: #ffe89d;
 	border: 1px solid #ffc30c;
 }
 
-/*.dan-is-cool {
-	background-color: blue;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.urgent.true {
+	color: #b23a25;
+}
+
+
+@media only screen and (max-width: 650px) {
+
+	body {
+		display: block;
+	}
+
+	label {
+		width: 90%;
+	}
+
+	header {
+		display: flex;
+		flex-wrap: wrap;
+		height: 150px;
+		justify-content: center;
+	}
+
+	.search-form,
+	.title {
+		font-size: 37px;
+		text-align: center;
+		width: 90%;
+	}
+
+	aside {
+		min-height: 400px;
+	}
+
+	.filter-urgency-btn {
+		width: 90%;
+		margin: auto;
+	}
+
+	.task-item-container,
+	.task-title-input,
+	.make-list-btn,
+	.clear-task-btn {
+		width: 90%;
+	}
+
+	main {
+		columns: 1;
+		display: block;
+	}
+
+	.card-header {
+		display: flex;
+		justify-content: left;
+	}
+
 }

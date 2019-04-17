@@ -5,11 +5,12 @@
 // - Urgent value
 
 class toDoList {
-	constructor(id, title, tasks, urgent) {
+	constructor(id, title, tasks, urgent, checked) {
 		this.id = id;
 		this.title = title;
 		this.tasks = tasks || [];
 		this.urgent = urgent || false;
+		this.checked = checked;
 	}
 	
 	saveToLocalStorage(allToDoLists) {

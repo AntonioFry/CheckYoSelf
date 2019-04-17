@@ -14,7 +14,7 @@ var asideContainer = document.querySelector('aside');
 var makeToDoList = document.querySelector('#make-list-btn');
 var mainSection1 = document.querySelector('#main1');
 var mainSection2 = document.querySelector('#main2')
-var urgentBtn = document.querySelector('#urgent-btn');
+var urgentBtn = document.querySelector('.urgent-btn');
 var clearAllBtn = document.querySelector('#clear-task-btn');
 var mainSection = document.querySelector('main');
 var checkMark = document.querySelector('.check-mark');
@@ -27,8 +27,7 @@ makeToDoList.addEventListener('click', makeNewList);
 mainSection.addEventListener('click', makeUrgent);
 clearAllBtn.addEventListener('click', clearAll);
 mainSection.addEventListener('click', deleteToDoList);
-mainSection.addEventListener('click', toggleUrgentStyle);
-// xmainSection.addEventListener('click', getId);
+mainSection.addEventListener('click', getId);
 
 function addTask(e) {
 	if (addTaskInput.value === '') {
@@ -87,18 +86,18 @@ function displayToDoList(elem) {
 	// }
 	var eachTask = elem.tasks.map((text, index) => `<input type="checkbox" class="task-checkbox"><label class="checkbox-content">${text}</label></br>`);
 	var allTasks = eachTask.join(' ');
-	mainSection.innerHTML = `<article class="todo-list-card todo-list-card-${elem.urgent}" data-id="${elem.id}">
-				<header class="card-header card-header-${elem.urgent}">
+	mainSection.innerHTML = `<article class="todo-list-card card-${elem.urgent}" data-id="${elem.id}">
+				<header class="card-header card-${elem.urgent}">
 				<h2 class="card-title">${elem.title}</h2>
 				</header>
-				<form class="current-tasks current-tasks-${elem.urgent}">
+				<form class="current-tasks card-${elem.urgent}">
 				${allTasks}
 				</form>
-				<footer class="card-footer card-footer-${elem.urgent}">
+				<footer class="card-footer card-${elem.urgent}">
 				<div class="urgent-btn">
 				<img src="check-yo-self-icons/
 				urgent.svg">
-				<label class="urgent-label urgent-label-${elem.urgent}">URGENT</label>
+				<label class="urgent-label ${elem.urgent}">URGENT</label>
 				</div>
 				<div id="delete-card">
 				<img src="check-yo-self-icons/delete.svg">
@@ -146,7 +145,6 @@ function deleteToDoList(e) {
 		return elem.checked === false;	
 	});
 	if (uncheckedInputs.length) {
-		console.log('dont delete');
 		return;
 	} else {
 		removableCard.remove()
@@ -159,20 +157,23 @@ function toggleUrgentStyle(e) {
 	var toDoCard = e.target.closest('.todo-list-card');
 	var index = getId(e);
 	var obj = allToDoLists[index];
-	toDoCard.childNodes[0].className = `todo-list-card todo-list-card-${elem.urgent}`;
-	toDoCard.childNodes[1].className = `card-header card-header-${elem.urgent}`;
-	toDoCard.childNodes[3].className = `current-tasks current-tasks-${elem.urgent}`;
-	toDoCard.childNodes[5].className = `card-footer card-footer-${elem.urgent}`;
-	toDoCard.childNodes[5].childNodes[1].childNodes[3].className = `urgent-label urgent-label-${elem.urgent}`;
+	toDoCard.childNodes[0].className = `todo-list-card card-${obj.urgent}`;
+	toDoCard.childNodes[1].className = `card-header card-${obj.urgent}`;
+	toDoCard.childNodes[3].className = `current-tasks card-${obj.urgent}`;
+	toDoCard.childNodes[5].className = `card-footer card-${obj.urgent}`;
+	toDoCard.childNodes[5].childNodes[1].childNodes[3].className = `urgent-label ${obj.urgent}`;
 }
 
 function makeUrgent(e) {
-	var urgentBtn = e.target.closest(urgentBtn);
+	var urgentBtn = e.target('.urgent-btn');
+	var index = getId(e)
 	if (!urgentBtn) {
 		return
 	}
-	e.target.classList.toggle('#urgent-card')
-	console.log(newList)
+	allToDoLists[i].toggleUrgent(e);
+	toggleUrgentStyle(e);
+	allToDoLists[i].updateLocalStorage(e);
+
 }
 
 
