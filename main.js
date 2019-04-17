@@ -82,9 +82,8 @@ function displayToDoList(elem) {
 				${allTasks}
 				</form>
 				<footer class="card-footer card-${elem.urgent}">
-				<div class="urgent-btn">
-				<img src="check-yo-self-icons/
-				urgent.svg">
+				<div id="urgent-card">
+				<img src=${elem.urgentImg}>
 				<label class="urgent-label ${elem.urgent}">URGENT</label>
 				</div>
 				<div id="delete-card">
@@ -95,10 +94,10 @@ function displayToDoList(elem) {
 				</article>` + mainSection.innerHTML;
 }
 
-function pageLoad() {
+function pageLoad(e) {
 	var newObj = JSON.parse(localStorage.getItem('allToDoLists'));
 	for (var i = 0; i < newObj.length; i++) {
-		var card = new toDoList(newObj[i].id, newObj[i].title, newObj[i].tasks, newObj[i].urgent);
+		var card = new toDoList(newObj[i].id, newObj[i].title, newObj[i].tasks, newObj[i].urgent, newObj[i].urgentImg);
 		allToDoLists.push(card);
 		displayToDoList(card);
 	}
@@ -146,16 +145,21 @@ function toggleUrgentStyle(e) {
 }
 
 function makeUrgent(e) {
-	var urgentBtn = e.target('.urgent-btn');
+	var urgentBtn = e.target.closest('#urgent-card');
 	var index = getId(e)
 	if (!urgentBtn) {
 		return
 	}
-	allToDoLists[i].toggleUrgent(e);
+	if (allToDoLists[index].urgent === true) {
+		allToDoLists[index].toggleUrgent(e);
+		allToDoLists[index].saveToLocalStorage(allToDoLists);
+	} else {
+		allToDoLists[index].toggleUrgent(e);
+		allToDoLists[index].saveToLocalStorage(allToDoLists);
+	}
 	toggleUrgentStyle(e);
-	allToDoLists[i].updateLocalStorage(e);
+	console.log(allToDoLists[index])
 }
-
 
 function updateLocalStorage() {
 	var stringifyToDoList = JSON.stringify(allToDoLists);
