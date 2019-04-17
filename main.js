@@ -1,9 +1,3 @@
-// Phase 1
-// 	Creating new To-dos:
-// 		- Should be able to add new tasks using the add item form
-// 			- Query the input and button within the form
-// 			- create a function that gets the input
-
 var asideTasks = [];
 var allToDoLists = [];
 var addTaskInput = document.querySelector('#task-item-input');
@@ -19,6 +13,7 @@ var clearAllBtn = document.querySelector('#clear-task-btn');
 var mainSection = document.querySelector('main');
 var checkMark = document.querySelector('.check-mark');
 var toDoCard = document.querySelector('article');
+var searchBar = document.querySelector('#header-search-bar');
 
 window.addEventListener('load', pageLoad);
 addTaskBtn.addEventListener('click', addTask);
@@ -28,6 +23,7 @@ mainSection.addEventListener('click', makeUrgent);
 clearAllBtn.addEventListener('click', clearAll);
 mainSection.addEventListener('click', deleteToDoList);
 mainSection.addEventListener('click', getId);
+searchBar.addEventListener('keyup', filterSearch);
 
 function addTask(e) {
 	if (addTaskInput.value === '') {
@@ -55,35 +51,27 @@ function clearAll(e) {
 	document.querySelector('#task-item-input').value = '';
 }
 
-// function disableMakeNewListBtn(e) {
-// 	if (document.querySelector('#preview-tasks').innerHTML === '') {
-// 		clearAllBtn.disabled = true;
-// 		clearAllBtn.style.backgroundColor = '#aaaa';
-// 	} else {
-// 		clearAllBtn.disabled = false
-// 		clearAllBtn.style.backgroundColor = '#1f1f3d'
-// 	}
-// }
+function filterSearch(e) {
+	for (var i = 0; i < allToDoLists.length; i++) {
+    	var dataIdKey = `[data-id = "${allToDoLists[i].id}"]`;
+    	var card = document.querySelector(dataIdKey);
+    	if (allToDoLists[i].tasks.includes(searchBar.value) === true || allToDoLists[i].title.includes(searchBar.value) === true) {
+     		card.style.display = "block";
+   		} else if (allToDoLists[i].tasks.includes(searchBar.value) === false || allToDoLists[i].title.includes(searchBar.value) === false) {
+      		card.style.display = "none";
+		}
+	}
+}
 
 function makeNewList() {
 	var newList = new toDoList(Date.now(), titleInput.value, asideTasks);
 	allToDoLists.push(newList);
 	newList.saveToLocalStorage(allToDoLists);
-	// document.querySelector('#main1').innerHTML = '';
-	// document.querySelector('#main2').innerHTML = '';
-	// allToDoLists.map(function(elem, index) {
-	// 	return displayToDoList(elem, index)
-	// });
 	displayToDoList(newList)
 	clearAll();
 }
 
 function displayToDoList(elem) {
-	// if (index %2 === 0) {
-	// 	displaySection = document.querySelector('#1main');
-	// } else {
-	// 	displaySection = document.querySelector('#main2');
-	// }
 	var eachTask = elem.tasks.map((text, index) => `<input type="checkbox" class="task-checkbox"><label class="checkbox-content">${text}</label></br>`);
 	var allTasks = eachTask.join(' ');
 	mainSection.innerHTML = `<article class="todo-list-card card-${elem.urgent}" data-id="${elem.id}">
@@ -108,9 +96,6 @@ function displayToDoList(elem) {
 }
 
 function pageLoad() {
-	// disableMakeNewListBtn()
-	// var thing = localStorage.getItem('allToDoLists');
-	// var listLocalStorage = Array.from(JSON.parse(localStorage.getItem('allToDoLists')));
 	var newObj = JSON.parse(localStorage.getItem('allToDoLists'));
 	for (var i = 0; i < newObj.length; i++) {
 		var card = new toDoList(newObj[i].id, newObj[i].title, newObj[i].tasks, newObj[i].urgent);
@@ -118,10 +103,6 @@ function pageLoad() {
 		displayToDoList(card);
 	}
 	console.log(allToDoLists);
-
-	// (function(elem, index) {
-	// 	return displayToDoList();
-	// });
 }
 
 function getId(e) {
@@ -181,10 +162,3 @@ function updateLocalStorage() {
 	var stringifyToDoList = JSON.stringify(allToDoLists);
 	localStorage.setItem('allToDoLists', stringifyToDoList);
 }
-
-// articleCard.addEventListener('click', clickArticleCard);
-
-
-// function clickArticleCard(e) {
-// 	e.target.classList.toggle('dan-is-cool')
-// }

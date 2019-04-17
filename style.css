@@ -2,8 +2,8 @@
 
 body {
 	box-sizing: border-box;
-	font-family: Open Sans, regular;
 	display: grid;
+	font-family: Open Sans, regular;
 	grid-template-areas:
 	"header header header"
 	"aside main main";	
@@ -14,8 +14,8 @@ body {
 button {
 	background-color: #1f1f3d;
 	border: 0px;
-	display: flex;
 	color: #ffffff;
+	display: flex;
 	font-size: 1em;
 	justify-content: center;
 	text-align: center;
@@ -146,8 +146,8 @@ main {
 	background-color: #f3f6f7;
 	flex-wrap: wrap;
   columns: 2;
-  justify-content: space-between;
   grid-area: main;
+  justify-content: space-between;
   padding: 25px;
 }
 
@@ -156,11 +156,11 @@ main {
 article {
 	background-color: #f4f7f8;
 	background-color: #f4f7f8;
+  break-inside: avoid;
   height: fit-content;
   margin: 0px 0px 15px 0px;
-  width: 100%;
-  break-inside: avoid;
   overflow: hidden;
+  width: 100%;
 }
 
 .todo-list-card,
@@ -187,8 +187,8 @@ article {
 
 .task-checkbox,
 .checkbox-content {
-	height: 28px;
 	color: #1f1f3d;
+	height: 28px;
 	margin: 0px 10px 0px 0px;
 }
 
@@ -197,8 +197,8 @@ article {
 }
 
 .checkbox-content {
-  position: relative;
   bottom: 6px;
+  position: relative;
 }
 
 .card-footer {
