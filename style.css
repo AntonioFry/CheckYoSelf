@@ -1,19 +1,24 @@
-/* Global elements */
+ /* Global elements */
 
 body {
 	box-sizing: border-box;
-	font-family: Open Sans, regular;
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	font-family: Open Sans, regular;
 	grid-template-areas:
 	"header header header"
-	"aside main main"
+	"aside main main";	
+	grid-template-columns: repeat(3, 1fr);
+	margin: 0px;
 }
 
 button {
 	background-color: #1f1f3d;
 	border: 0px;
 	color: #ffffff;
+	display: flex;
+	font-size: 1em;
+	justify-content: center;
+	text-align: center;
 }
 
 input {
@@ -23,7 +28,16 @@ input {
 }
 
 label {
+	color: #f4f7f8;
 	width: 100%;
+}
+
+ul {
+	width: 100%;
+}
+
+img {
+	height: 20px
 }
 
 /* Header */
@@ -68,9 +82,9 @@ header {
 /* Aside */
 
 aside {
-	background-color: #587a8b;
+	background-color: #47869a;
 	grid-area: aside;
-	height: 875px;
+	min-height: 875px;
 	padding: 20px 15px;
 }
 
@@ -94,9 +108,17 @@ aside {
 
 .task-item-container,
 .task-title-input,
-.make-task-btn,
+.make-list-btn,
 .clear-task-btn {
 	width: 100%;
+}
+
+#preview-tasks {
+	list-style-image: url(check-yo-self-icons/delete.svg);
+}
+
+.task-item {
+	font-size: 30px;
 }
 
 .task-item-input {
@@ -107,7 +129,7 @@ aside {
 	width: 10%;
 }
 
-.make-task-btn,
+.make-list-btn,
 .clear-task-btn {
 	height: 30px;	
 	margin: 15px 0px;
@@ -121,5 +143,163 @@ aside {
 /* Main */
 
 main {
-	grid-area: main
+	background-color: #f3f6f7;
+	flex-wrap: wrap;
+  columns: 2;
+  grid-area: main;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+/* Todo list */
+
+article {
+	background-color: #f4f7f8;
+	background-color: #f4f7f8;
+  break-inside: avoid;
+  height: fit-content;
+  margin: 0px 0px 15px 0px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.todo-list-card,
+.card-header,
+.card-footer,
+.current-tasks {
+	background-color: #f4f7f8;
+	border: 1px solid #c7d3d8;
+}
+
+.card-header {
+	height: 40px;
+}
+
+.card-title {
+	color: #1f1f3d;
+	font-size: 1em;
+	margin: 0px;
+}
+
+.current-tasks {
+	padding: 10px;
+}
+
+.task-checkbox,
+.checkbox-content {
+	color: #1f1f3d;
+	height: 28px;
+	margin: 0px 10px 0px 0px;
+}
+
+.task-checkbox {
+	background: url();
+}
+
+.checkbox-content {
+  bottom: 6px;
+  position: relative;
+}
+
+.card-footer {
+	align-items: center;
+	display: flex;
+	height: 50px;
+	justify-content: space-between;
+}
+
+div {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.delete-label,
+.urgent-label {
+	color: #3c6577;
+	font-size: 10px;
+	text-align: center;
+	width: 100%;
+}
+
+.urgent-card {
+	background-color: #ffe89d;
+	border: 1px solid #ffc30c;
+}
+
+/* Urgent Styles */
+
+.todo-list-card.card-true,
+.card-header.card-true,
+.card-footer.card-true,
+.current-tasks.card-true {
+	background-color: #ffe89d;
+	border: 1px solid #ffc30c;
+}
+
+.urgent.true {
+	color: #b23a25;
+}
+
+@media only screen and (max-width: 650px) {
+
+	body {
+		display: block;
+	}
+
+	form,
+	input,
+	button {
+		font-size: 20px;
+		height: 35px;
+	}
+
+	label {
+		width: 90%;
+	}
+
+	header {
+		display: flex;
+		flex-wrap: wrap;
+		height: 150px;
+		justify-content: center;
+	}
+
+	.search-form,
+	.title {
+		font-size: 37px;
+		text-align: center;
+		width: 90%;
+	}
+
+	aside {
+		min-height: 400px;
+	}
+
+	.task-form {
+		height: 300px;
+	}
+
+	.filter-urgency-btn {
+		margin: auto;
+		width: 90%;
+	}
+
+	.task-item-container,
+	.task-title-input,
+	.make-list-btn,
+	.clear-task-btn {
+		width: 90%;
+	}
+
+	main {
+		columns: 1;
+		display: block;
+	}
+
+	.card-header {
+		display: flex;
+		justify-content: left;
+	}
+	
 }
