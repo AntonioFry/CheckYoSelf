@@ -148,6 +148,7 @@ main {
   columns: 2;
   grid-area: main;
   justify-content: space-between;
+  min-height: 875px;
   padding: 25px;
 }
 
@@ -277,7 +278,7 @@ div {
 	}
 
 	.task-form {
-		height: 300px;
+		height: 315px;
 	}
 
 	.filter-urgency-btn {
@@ -295,11 +296,12 @@ div {
 	main {
 		columns: 1;
 		display: block;
+		min-height: 150px;
 	}
 
 	.card-header {
 		display: flex;
 		justify-content: left;
 	}
-	
+
 }
