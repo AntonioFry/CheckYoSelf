@@ -102,6 +102,8 @@ function pageLoad(e) {
 		var card = new toDoList(newObj[i].id, newObj[i].title, newObj[i].tasks, newObj[i].urgent, newObj[i].urgentImg);
 		allToDoLists.push(card);
 		displayToDoList(card);
+		var card = getCard();
+		console.log(card)
 	}
 	console.log(allToDoLists);
 }
@@ -164,26 +166,42 @@ function makeUrgent(e) {
 }
 
 function filterUrgentCard(e) {
-	var card = getCard();
-	console.log(card);
-	var urgentCards = allToDoLists.forEach(function(elem) {
-		if ((elem.id === card) && (elem.urgent === true)) {
-			return 	card.style.display = "block";
+	var cards = document.querySelectorAll('.todo-list-card');
+	// console.log(cards);
+	for (var i = 0; i < allToDoLists.length; i++) {
+		var dataIdKey = `[data-id = "${allToDoLists[i].id}"]`;
+    	var card = document.querySelector(dataIdKey);
+		if (card.style.display === "none") {
+			displayCard();
+			return
+		}
+	}
+	var urgentCards = allToDoLists.map(function(elem, index) {
+		if (elem.urgent === true) {
+			cards[index].style.display = "block";
 		} else {
-			return	card.style.display = "false";
+			cards[index].style.display = "none";
 		}
 	});
-	console.log(urgentCards);
+}
+
+function displayCard() {
+	allToDoLists.map((elem, index) => {
+		var dataIdKey = `[data-id = "${elem.id}"]`;
+    	var card = document.querySelector(dataIdKey);
+		card.style.display = "block";
+	});
 }
 
 function getCard() {
-	var card;
- 	for (var i = 0; i < allToDoLists.length; i++) {
-    	var dataIdKey = `[data-id = "${allToDoLists[i].id}"]`;
-    	return card = document.querySelector(dataIdKey);
-    }
-    console.log(card);
-    return card;
+	var cards = document.querySelectorAll('.todo-list-card');
+	return cards
+ // 	for (var i = 0; i < allToDoLists.length; i++) {
+ //    	var dataIdKey = `[data-id = "${allToDoLists[i].id}"]`;
+ //    	return card = document.querySelector(dataIdKey);
+ //    }
+ //    console.log(card);
+ //    return card;
 }
 
 function updateLocalStorage() {
