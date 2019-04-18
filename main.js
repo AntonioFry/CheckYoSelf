@@ -14,6 +14,7 @@ var mainSection = document.querySelector('main');
 var checkMark = document.querySelector('.check-mark');
 var toDoCard = document.querySelector('article');
 var searchBar = document.querySelector('#header-search-bar');
+var filterUrgentBtn = document.querySelector('#filter-urgency-btn');
 
 window.addEventListener('load', pageLoad);
 addTaskBtn.addEventListener('click', addTask);
@@ -24,6 +25,7 @@ clearAllBtn.addEventListener('click', clearAll);
 mainSection.addEventListener('click', deleteToDoList);
 mainSection.addEventListener('click', getId);
 searchBar.addEventListener('keyup', filterSearch);
+filterUrgentBtn.addEventListener('click', filterUrgentCard);
 
 function addTask(e) {
 	if (addTaskInput.value === '') {
@@ -82,9 +84,8 @@ function displayToDoList(elem) {
 				${allTasks}
 				</form>
 				<footer class="card-footer card-${elem.urgent}">
-				<div class="urgent-btn">
-				<img src="check-yo-self-icons/
-				urgent.svg">
+				<div id="urgent-card">
+				<img src="${elem.urgentImg}">
 				<label class="urgent-label ${elem.urgent}">URGENT</label>
 				</div>
 				<div id="delete-card">
@@ -95,12 +96,14 @@ function displayToDoList(elem) {
 				</article>` + mainSection.innerHTML;
 }
 
-function pageLoad() {
+function pageLoad(e) {
 	var newObj = JSON.parse(localStorage.getItem('allToDoLists'));
 	for (var i = 0; i < newObj.length; i++) {
-		var card = new toDoList(newObj[i].id, newObj[i].title, newObj[i].tasks, newObj[i].urgent);
+		var card = new toDoList(newObj[i].id, newObj[i].title, newObj[i].tasks, newObj[i].urgent, newObj[i].urgentImg);
 		allToDoLists.push(card);
 		displayToDoList(card);
+		var card = getCard();
+		console.log(card)
 	}
 	console.log(allToDoLists);
 }
@@ -146,16 +149,60 @@ function toggleUrgentStyle(e) {
 }
 
 function makeUrgent(e) {
-	var urgentBtn = e.target('.urgent-btn');
+	var urgentBtn = e.target.closest('#urgent-card');
 	var index = getId(e)
 	if (!urgentBtn) {
 		return
 	}
-	allToDoLists[i].toggleUrgent(e);
+	if (allToDoLists[index].urgent === true) {
+		allToDoLists[index].toggleUrgent(e);
+		allToDoLists[index].saveToLocalStorage(allToDoLists);
+
+	} else {
+		allToDoLists[index].toggleUrgent(e);
+		allToDoLists[index].saveToLocalStorage(allToDoLists);
+	}
 	toggleUrgentStyle(e);
-	allToDoLists[i].updateLocalStorage(e);
 }
 
+function filterUrgentCard(e) {
+	var cards = document.querySelectorAll('.todo-list-card');
+	// console.log(cards);
+	for (var i = 0; i < allToDoLists.length; i++) {
+		var dataIdKey = `[data-id = "${allToDoLists[i].id}"]`;
+    	var card = document.querySelector(dataIdKey);
+		if (card.style.display === "none") {
+			displayCard();
+			return
+		}
+	}
+	var urgentCards = allToDoLists.map(function(elem, index) {
+		if (elem.urgent === true) {
+			cards[index].style.display = "block";
+		} else {
+			cards[index].style.display = "none";
+		}
+	});
+}
+
+function displayCard() {
+	allToDoLists.map((elem, index) => {
+		var dataIdKey = `[data-id = "${elem.id}"]`;
+    	var card = document.querySelector(dataIdKey);
+		card.style.display = "block";
+	});
+}
+
+function getCard() {
+	var cards = document.querySelectorAll('.todo-list-card');
+	return cards
+ // 	for (var i = 0; i < allToDoLists.length; i++) {
+ //    	var dataIdKey = `[data-id = "${allToDoLists[i].id}"]`;
+ //    	return card = document.querySelector(dataIdKey);
+ //    }
+ //    console.log(card);
+ //    return card;
+}
 
 function updateLocalStorage() {
 	var stringifyToDoList = JSON.stringify(allToDoLists);

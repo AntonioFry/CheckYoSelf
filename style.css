@@ -238,7 +238,7 @@ div {
 	border: 1px solid #ffc30c;
 }
 
-.urgent.true {
+.urgent-label.true {
 	color: #b23a25;
 }
 

@@ -5,11 +5,12 @@
 // - Urgent value
 
 class toDoList {
-	constructor(id, title, tasks, urgent, checked) {
+	constructor(id, title, tasks, urgent, urgentImg, checked) {
 		this.id = id;
 		this.title = title;
 		this.tasks = tasks || [];
 		this.urgent = urgent || false;
+		this.urgentImg = urgentImg || "check-yo-self-icons/urgent.svg"; 
 		this.checked = checked;
 	}
 	
@@ -21,6 +22,13 @@ class toDoList {
 		return allToDoLists.splice(list, 1);
 	}
 	toggleUrgent(list) {
-		this.urgent = !this.urgent;	
+		this.urgent = !this.urgent;
+		if (this.urgent === false) {
+			this.urgentImg = "check-yo-self-icons/urgent.svg";
+			console.log(this.urgentImg)
+		} else if (this.urgent === true) {
+			this.urgentImg = "check-yo-self-icons/urgent-active.svg";
+			console.log(this.urgentImg)
+		}
 	}
 }
