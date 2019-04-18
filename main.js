@@ -14,6 +14,7 @@ var mainSection = document.querySelector('main');
 var checkMark = document.querySelector('.check-mark');
 var toDoCard = document.querySelector('article');
 var searchBar = document.querySelector('#header-search-bar');
+var filterUrgentBtn = document.querySelector('#filter-urgency-btn');
 
 window.addEventListener('load', pageLoad);
 addTaskBtn.addEventListener('click', addTask);
@@ -24,6 +25,7 @@ clearAllBtn.addEventListener('click', clearAll);
 mainSection.addEventListener('click', deleteToDoList);
 mainSection.addEventListener('click', getId);
 searchBar.addEventListener('keyup', filterSearch);
+filterUrgentBtn.addEventListener('click', filterUrgentCard);
 
 function addTask(e) {
 	if (addTaskInput.value === '') {
@@ -153,12 +155,35 @@ function makeUrgent(e) {
 	if (allToDoLists[index].urgent === true) {
 		allToDoLists[index].toggleUrgent(e);
 		allToDoLists[index].saveToLocalStorage(allToDoLists);
+
 	} else {
 		allToDoLists[index].toggleUrgent(e);
 		allToDoLists[index].saveToLocalStorage(allToDoLists);
 	}
 	toggleUrgentStyle(e);
-	console.log(allToDoLists[index])
+}
+
+function filterUrgentCard(e) {
+	var card = getCard();
+	console.log(card);
+	var urgentCards = allToDoLists.forEach(function(elem) {
+		if ((elem.id === card) && (elem.urgent === true)) {
+			return 	card.style.display = "block";
+		} else {
+			return	card.style.display = "false";
+		}
+	});
+	console.log(urgentCards);
+}
+
+function getCard() {
+	var card;
+ 	for (var i = 0; i < allToDoLists.length; i++) {
+    	var dataIdKey = `[data-id = "${allToDoLists[i].id}"]`;
+    	return card = document.querySelector(dataIdKey);
+    }
+    console.log(card);
+    return card;
 }
 
 function updateLocalStorage() {
